@@ -17,6 +17,7 @@ namespace CompanyUI
         VacansyController vacansyController = new VacansyController();
         DepartmentController departmentController = new DepartmentController();
         EmployeeController employeeController = new EmployeeController();
+        ManagerController managerController = new ManagerController();
         public static Department DepartmentTemp { get; set; }
         List<Skill> SkillsTemp = new List<Skill>();
 
@@ -73,6 +74,11 @@ namespace CompanyUI
                     {
                         employeeController.HireEmp(form.Employee, form.skillsTepm);
                         MessageBox.Show(form.Employee + ": was hired");
+                    }
+                    if (form.Position == "Manager")
+                    {
+                        managerController.HireManager(form.Manager, form.skillsTepm);
+                        MessageBox.Show(form.Manager + ": was hired");
                     }
                 }
             }
@@ -151,8 +157,12 @@ namespace CompanyUI
         private void UpdateEmp()
         {
             var emplys = employeeController.UpdateEmp();
-            lblEmplys.Text = emplys.Count.ToString();
-            foreach (var item in emplys)
+            var mana = managerController.UpdateMan();
+            List<BaseEmployee> baseEmployees = new List<BaseEmployee>();
+            baseEmployees.AddRange(emplys);
+            baseEmployees.AddRange(mana);
+            lblEmplys.Text = baseEmployees.Count.ToString();
+            foreach (var item in baseEmployees)
             {
                 if (!cboEmpleys.Items.Contains(item))
                 {

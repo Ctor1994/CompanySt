@@ -4,14 +4,16 @@ using CompanyBL.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CompanyBL.Migrations
 {
     [DbContext(typeof(CompanyContext))]
-    partial class CompanyContextModelSnapshot : ModelSnapshot
+    [Migration("20210423085637_inits")]
+    partial class inits
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,6 +49,9 @@ namespace CompanyBL.Migrations
                     b.Property<bool>("Bonus")
                         .HasColumnType("bit");
 
+                    b.Property<int>("ManagerId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -57,6 +62,8 @@ namespace CompanyBL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ManagerId");
 
                     b.ToTable("Employees");
                 });
@@ -146,6 +153,17 @@ namespace CompanyBL.Migrations
                     b.ToTable("EmployeeSkill");
                 });
 
+            modelBuilder.Entity("CompanyBL.Model.Employee", b =>
+                {
+                    b.HasOne("CompanyBL.Model.Manager", "Manager")
+                        .WithMany("employees")
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Manager");
+                });
+
             modelBuilder.Entity("CompanyBL.Model.Skill", b =>
                 {
                     b.HasOne("CompanyBL.Model.Manager", null)
@@ -174,6 +192,8 @@ namespace CompanyBL.Migrations
 
             modelBuilder.Entity("CompanyBL.Model.Manager", b =>
                 {
+                    b.Navigation("employees");
+
                     b.Navigation("Skills");
                 });
 

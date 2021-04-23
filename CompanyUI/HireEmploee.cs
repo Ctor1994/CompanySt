@@ -12,7 +12,9 @@ namespace CompanyUI
     public partial class HireEmploee : Form
     {
         public Employee Employee { get; set; }
+        public Manager Manager { get; set; }
         int countEmp = 0;
+        int countManag = 0;
         public string Position { get; set; }
         public List<Skill> skillsTepm;
         private readonly List<string> SkillsList = new List<string>() { "English", "C#", "Java", "Excel", "Make Coffee", "MS SQL", "Java Script", "Asp.net core", "WPF", "WCF", "WinForm" };
@@ -26,7 +28,7 @@ namespace CompanyUI
         private void btnHire_Click(object sender, EventArgs e)
         {
             Position = cboPosition.SelectedItem.ToString();
-            if (cboPosition.SelectedItem.ToString() == "Employee")
+            if (Position == "Employee")
             {
                 Employee = new Employee()
                 {
@@ -38,6 +40,21 @@ namespace CompanyUI
                     Bonus = false
                 };
                 countEmp++;
+                SelectSkills();
+            }
+            else if (Position == "Manager")
+            {
+                Manager = new Manager()
+                {
+                    Id = countManag,
+                    Name = txbEmplName.Text,
+                    SecondName = txbSecName.Text,
+                    BirthDate = dtpBirth.Value,
+                    Salary = nudSalary.Value,
+                    Bonus = false,
+                    //employees = new List<Employee>()
+                };
+                countManag++;
                 SelectSkills();
             }
         }
