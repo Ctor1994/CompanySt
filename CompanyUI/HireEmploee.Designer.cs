@@ -219,6 +219,7 @@ namespace CompanyUI
             ((System.ComponentModel.ISupportInitialize)(this.nudSalary)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+            this.AcceptButton = this.btnHire;
 
         }
 

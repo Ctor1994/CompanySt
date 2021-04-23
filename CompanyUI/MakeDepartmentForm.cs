@@ -15,6 +15,7 @@ namespace CompanyUI
         int countDep = 0;
         public MakeDepartmentForm()
         {
+
             InitializeComponent();
         }
 

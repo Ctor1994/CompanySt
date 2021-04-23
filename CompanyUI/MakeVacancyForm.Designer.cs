@@ -30,7 +30,7 @@ namespace CompanyUI
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.btnOkDep = new System.Windows.Forms.Button();
+            this.btnOkVac = new System.Windows.Forms.Button();
             this.txbVacName = new System.Windows.Forms.TextBox();
             this.lblSalary = new System.Windows.Forms.Label();
             this.nudSalary = new System.Windows.Forms.NumericUpDown();
@@ -46,19 +46,19 @@ namespace CompanyUI
             this.label1.TabIndex = 5;
             this.label1.Text = "Input Vacansy Name";
             // 
-            // btnOkDep
+            // btnOkVac
             // 
-            this.btnOkDep.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.btnOkVac.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOkDep.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOkDep.Location = new System.Drawing.Point(346, 259);
-            this.btnOkDep.Name = "btnOkDep";
-            this.btnOkDep.Size = new System.Drawing.Size(75, 23);
-            this.btnOkDep.TabIndex = 4;
-            this.btnOkDep.Text = "Make";
-            this.btnOkDep.UseVisualStyleBackColor = true;
-            this.btnOkDep.Click += new System.EventHandler(this.btnOkDep_Click);
+            this.btnOkVac.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnOkVac.Location = new System.Drawing.Point(346, 259);
+            this.btnOkVac.Name = "btnOkVac";
+            this.btnOkVac.Size = new System.Drawing.Size(75, 23);
+            this.btnOkVac.TabIndex = 4;
+            this.btnOkVac.Text = "Make";
+            this.btnOkVac.UseVisualStyleBackColor = true;
+            this.btnOkVac.Click += new System.EventHandler(this.btnOkDep_Click);
             // 
             // txbVacName
             // 
@@ -88,13 +88,14 @@ namespace CompanyUI
             // 
             // MakeVacancyForm
             // 
+            this.AcceptButton = this.btnOkVac;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(468, 360);
             this.Controls.Add(this.nudSalary);
             this.Controls.Add(this.lblSalary);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnOkDep);
+            this.Controls.Add(this.btnOkVac);
             this.Controls.Add(this.txbVacName);
             this.Name = "MakeVacancyForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -102,13 +103,14 @@ namespace CompanyUI
             ((System.ComponentModel.ISupportInitialize)(this.nudSalary)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+            this.AcceptButton = this.btnOkVac;
 
         }
 
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnOkDep;
+        private System.Windows.Forms.Button btnOkVac;
         private System.Windows.Forms.TextBox txbVacName;
         private System.Windows.Forms.Label lblSalary;
         private System.Windows.Forms.NumericUpDown nudSalary;

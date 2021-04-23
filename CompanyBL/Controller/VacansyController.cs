@@ -22,10 +22,9 @@ namespace CompanyBL.Controller
                 db.SaveChanges();
             }
         }
-        public List<Vacansy> UpdateDep()
+        public List<Vacansy> UpdateМVac()
         {
-            var vacans = db.Vacansies.ToList();
-            return vacans;
+            return db.Vacansies.ToList();
         }
     }
 }

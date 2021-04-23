@@ -22,10 +22,16 @@ namespace CompanyBL.Controller
                 db.SaveChanges();
             }
         }
+
         public List<Department> UpdateDep()
         {
-            var departs = db.Departments.ToList();
-            return departs;
+            return db.Departments.ToList();
+        }
+
+        public void CloseDep(Department department)
+        {
+            db.Departments.Remove(department);
+            db.SaveChanges();
         }
     }
 }

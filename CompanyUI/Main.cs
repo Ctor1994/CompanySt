@@ -14,12 +14,12 @@ namespace CompanyUI
 {
     public partial class Main : Form 
     {
-
-        CompanyContext db;
+        VacansyController vacansyController = new VacansyController();
+        DepartmentController departmentController = new DepartmentController();
+        EmployeeController employeeController = new EmployeeController();
         public Main()
         {
             InitializeComponent();
-            db = new CompanyContext();
             UpdateAll();
         }
 
@@ -31,7 +31,7 @@ namespace CompanyUI
         }
         private void UpdateVac()
         {
-            var vac = db.Vacansies.ToList();
+            var vac = vacansyController.UpdateМVac();
             lblVac.Text = vac.Count.ToString();
             foreach (var item in vac)
             {
@@ -56,7 +56,7 @@ namespace CompanyUI
 
         private void UpdateEmp()
         {
-            var emplys = db.Employees.ToList();
+            var emplys = employeeController.UpdateEmp();
             lblEmplys.Text = emplys.Count.ToString();
             foreach (var item in emplys)
             {
@@ -67,25 +67,23 @@ namespace CompanyUI
             }
         }
 
-        DepartmentController departmentController = new DepartmentController();
+
         public static Department Dep { get; set; }
         private void btnMakeDep_Click(object sender, EventArgs e)
         {
-            
             var form = new MakeDepartmentForm();
             if (form.ShowDialog() == DialogResult.OK)
             {
                 departmentController.MakeDep(form.Department);
                 MessageBox.Show(form.Department.Name + ": was made");
             }
-             
             UpdateDep();
         }
 
         List<Skill> SkillsTemp = new List<Skill>();
         public static Department DepartmentTemp { get; set; }
 
-        EmployeeController employeeController = new EmployeeController();
+
 
         private void Hire()
         {
@@ -119,8 +117,7 @@ namespace CompanyUI
         private void Fire()
         {
             var empl = cboEmpleys.SelectedItem as Employee;
-            db.Employees.Remove(empl);
-            db.SaveChanges();
+            employeeController.Fire(empl);
             cboEmpleys.Items.Remove(empl);
             MessageBox.Show(empl.Name + ": was fired");
         }
@@ -128,8 +125,7 @@ namespace CompanyUI
         private void CloseDep()
         {
             var dep = cboDeparts.SelectedItem as Department;
-            db.Departments.Remove(dep);
-            db.SaveChanges();
+            departmentController.CloseDep(dep);
             cboDeparts.Items.Remove(dep);
             MessageBox.Show(dep.Name + ": was closed");
         }
@@ -147,9 +143,8 @@ namespace CompanyUI
         }
 
 
-        // TODO: Empl привязать к Vacansy, а Vacansy привязать к Departms если юзера создаём вакансия удаляется
 
-        VacansyController vacansyController = new VacansyController();
+
 
         private void MakeVac()
         {

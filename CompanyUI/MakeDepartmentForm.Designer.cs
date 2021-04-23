@@ -74,6 +74,8 @@ namespace CompanyUI
             this.Text = "MakeDepartmentForm";
             this.ResumeLayout(false);
             this.PerformLayout();
+            this.AcceptButton = this.btnOkDep;
+
 
         }
 

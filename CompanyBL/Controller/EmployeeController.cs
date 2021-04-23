@@ -1,12 +1,20 @@
 ﻿using CompanyBL.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace CompanyBL.Controller
 {
     public class EmployeeController
     {
+        CompanyContext db;
+        public EmployeeController()
+        {
+            db = new CompanyContext();
+        }
+
+
         public void HireEmp(Employee employee, List<Skill> skills)
         {
             using (var db = new CompanyContext())
@@ -20,9 +28,15 @@ namespace CompanyBL.Controller
                 db.SaveChanges();
             }
         }
-        public EmployeeController()
+        public List<Employee> UpdateEmp()
         {
+            return db.Employees.ToList();
+        }
 
+        public void Fire(Employee employee)
+        {
+            db.Employees.Remove(employee);
+            db.SaveChanges();
         }
     }
 }
