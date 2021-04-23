@@ -38,7 +38,7 @@ namespace CompanyUI
             this.lblEmplys = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnHireEmp = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnFire = new System.Windows.Forms.Button();
             this.btnCloseDep = new System.Windows.Forms.Button();
             this.btnMakeVac = new System.Windows.Forms.Button();
             this.cboVacancy = new System.Windows.Forms.ComboBox();
@@ -128,15 +128,15 @@ namespace CompanyUI
             this.btnHireEmp.UseVisualStyleBackColor = true;
             this.btnHireEmp.Click += new System.EventHandler(this.btnHireEmp_Click);
             // 
-            // button1
+            // btnFire
             // 
-            this.button1.Location = new System.Drawing.Point(582, 185);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(150, 23);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Fire employee";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnFire.Location = new System.Drawing.Point(582, 185);
+            this.btnFire.Name = "btnFire";
+            this.btnFire.Size = new System.Drawing.Size(150, 23);
+            this.btnFire.TabIndex = 9;
+            this.btnFire.Text = "Fire employee";
+            this.btnFire.UseVisualStyleBackColor = true;
+            this.btnFire.Click += new System.EventHandler(this.btnFire_Click);
             // 
             // btnCloseDep
             // 
@@ -194,7 +194,7 @@ namespace CompanyUI
             this.Controls.Add(this.label4);
             this.Controls.Add(this.btnMakeVac);
             this.Controls.Add(this.btnCloseDep);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnFire);
             this.Controls.Add(this.btnHireEmp);
             this.Controls.Add(this.cboEmpleys);
             this.Controls.Add(this.lblEmplys);
@@ -223,7 +223,7 @@ namespace CompanyUI
         private System.Windows.Forms.Label lblEmplys;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnHireEmp;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnFire;
         private System.Windows.Forms.Button btnCloseDep;
         private System.Windows.Forms.Button btnMakeVac;
         private System.Windows.Forms.ComboBox cboVacancy;

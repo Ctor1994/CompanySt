@@ -13,29 +13,16 @@ namespace CompanyUI
     {
         public Employee Employee { get; set; }
         int countEmp = 0;
-
-        List<string> SkillsList = new List<string>() { "English", "C#", "Java", "Excel", "Make Coffee", "MS SQL", "Java Script", "Asp.net core", "WPF", "WCF", "WinForm" };
-        List<string> Positions = new List<string>() {"Employee", "Manager"};
+        public string Position { get; set; }
+        public List<Skill> skillsTepm;
+        private readonly List<string> SkillsList = new List<string>() { "English", "C#", "Java", "Excel", "Make Coffee", "MS SQL", "Java Script", "Asp.net core", "WPF", "WCF", "WinForm" };
+        private readonly List<string> Positions = new List<string>() {"Employee", "Manager"};
         public HireEmploee()
         {
             InitializeComponent();
             cboSkillSet.Items.AddRange(SkillsList.ToArray());
             cboPosition.Items.AddRange(Positions.ToArray());
         }
-        public List<Skill> skills33;
-        public List<Skill> SelectSkills()
-        {
-            skills33 = new List<Skill>();
-            foreach (var item in LBSkills.Items)
-            {
-                skills33.Add
-                (
-                    new Skill { Name = item.ToString() }
-                );
-            }
-            return skills33;
-        }
-        public string Position { get; set; }
         private void btnHire_Click(object sender, EventArgs e)
         {
             Position = cboPosition.SelectedItem.ToString();
@@ -48,7 +35,6 @@ namespace CompanyUI
                     SecondName = txbSecName.Text,
                     BirthDate = dtpBirth.Value,
                     Salary = nudSalary.Value,
-                    //Department = Main.DepartmentTemp,
                     Bonus = false
                 };
                 countEmp++;
@@ -65,6 +51,18 @@ namespace CompanyUI
                     LBSkills.Items.Add(cboSkillSet.SelectedItem.ToString());
                 }
             }
+        }
+        public List<Skill> SelectSkills()
+        {
+            skillsTepm = new List<Skill>();
+            foreach (var item in LBSkills.Items)
+            {
+                skillsTepm.Add
+                (
+                    new Skill { Name = item.ToString() }
+                );
+            }
+            return skillsTepm;
         }
     }
 }

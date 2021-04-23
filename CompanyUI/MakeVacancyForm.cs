@@ -19,7 +19,6 @@ namespace CompanyUI
             InitializeComponent();
         }
 
-
         private void btnOkDep_Click(object sender, EventArgs e)
         {
             Vacansy = new Vacansy()
@@ -27,10 +26,8 @@ namespace CompanyUI
                 Id = countVac,
                 Name = txbVacName.Text,
                 Salary = nudSalary.Value,
-                //Department = Main.DepartmentTemp
             };
             countVac++;
-
         }
     }
 }
