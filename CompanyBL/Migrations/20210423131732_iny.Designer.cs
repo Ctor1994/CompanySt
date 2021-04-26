@@ -4,14 +4,16 @@ using CompanyBL.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CompanyBL.Migrations
 {
     [DbContext(typeof(CompanyContext))]
-    partial class CompanyContextModelSnapshot : ModelSnapshot
+    [Migration("20210423131732_iny")]
+    partial class iny
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,13 +58,7 @@ namespace CompanyBL.Migrations
                     b.Property<string>("SecondName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("VacansyId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("VacansyId")
-                        .IsUnique();
 
                     b.ToTable("Employees");
                 });
@@ -89,7 +85,7 @@ namespace CompanyBL.Migrations
                     b.Property<string>("SecondName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("VacansyId")
+                    b.Property<int?>("VacansyId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -131,6 +127,9 @@ namespace CompanyBL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -138,6 +137,9 @@ namespace CompanyBL.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId")
+                        .IsUnique();
 
                     b.ToTable("Vacansies");
                 });
@@ -157,24 +159,11 @@ namespace CompanyBL.Migrations
                     b.ToTable("EmployeeSkill");
                 });
 
-            modelBuilder.Entity("CompanyBL.Model.Employee", b =>
-                {
-                    b.HasOne("CompanyBL.Model.Vacansy", "Vacansy")
-                        .WithOne("Employee")
-                        .HasForeignKey("CompanyBL.Model.Employee", "VacansyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Vacansy");
-                });
-
             modelBuilder.Entity("CompanyBL.Model.Manager", b =>
                 {
                     b.HasOne("CompanyBL.Model.Vacansy", "Vacansy")
                         .WithMany()
-                        .HasForeignKey("VacansyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("VacansyId");
 
                     b.Navigation("Vacansy");
                 });
@@ -188,6 +177,17 @@ namespace CompanyBL.Migrations
                     b.HasOne("CompanyBL.Model.Vacansy", null)
                         .WithMany("Skills")
                         .HasForeignKey("VacansyId");
+                });
+
+            modelBuilder.Entity("CompanyBL.Model.Vacansy", b =>
+                {
+                    b.HasOne("CompanyBL.Model.Employee", "Employee")
+                        .WithOne("Vacansy")
+                        .HasForeignKey("CompanyBL.Model.Vacansy", "EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("EmployeeSkill", b =>
@@ -205,6 +205,11 @@ namespace CompanyBL.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("CompanyBL.Model.Employee", b =>
+                {
+                    b.Navigation("Vacansy");
+                });
+
             modelBuilder.Entity("CompanyBL.Model.Manager", b =>
                 {
                     b.Navigation("Skills");
@@ -212,8 +217,6 @@ namespace CompanyBL.Migrations
 
             modelBuilder.Entity("CompanyBL.Model.Vacansy", b =>
                 {
-                    b.Navigation("Employee");
-
                     b.Navigation("Skills");
                 });
 #pragma warning restore 612, 618

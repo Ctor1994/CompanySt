@@ -12,7 +12,8 @@ namespace CompanyUI
     public partial class MakeVacancyForm : Form
     {
 
-        public Vacansy Vacansy { get; set; }
+        public static Vacansy Vacansy { get; set; }
+        public Vacansy Vacansy1 { get; set; }
         int countVac = 0;
         public MakeVacancyForm()
         {
@@ -21,13 +22,14 @@ namespace CompanyUI
 
         private void btnOkDep_Click(object sender, EventArgs e)
         {
-            Vacansy = new Vacansy()
+            Vacansy1 = new Vacansy()
             {
-                Id = countVac,
+                //Id = countVac,
                 Name = txbVacName.Text,
                 Salary = nudSalary.Value,
             };
-            countVac++;
+            Vacansy = Vacansy1;
+            //countVac++;
         }
     }
 }

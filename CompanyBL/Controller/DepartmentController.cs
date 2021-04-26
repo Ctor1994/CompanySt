@@ -6,23 +6,14 @@ using System.Text;
 
 namespace CompanyBL.Controller
 {
-    public class DepartmentController
+    public class DepartmentController : BaseController
     {
-        CompanyContext db;
-        
-        public DepartmentController()
-        {
-            db = new CompanyContext();
-        }
+        public DepartmentController() { }
+
         public void MakeDep(Department department)
         {
-            using (var db = new CompanyContext())
-            {
-                db.Departments.Add(department);
-                db.SaveChanges();
-            }
+            manager.MakeDep(department);
         }
-
         public List<Department> UpdateDep()
         {
             return db.Departments.ToList();

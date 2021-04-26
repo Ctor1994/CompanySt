@@ -6,28 +6,15 @@ using System.Text;
 
 namespace CompanyBL.Controller
 {
-    public class EmployeeController
+    public class EmployeeController : BaseController
     {
-        CompanyContext db;
-        public EmployeeController()
+        public EmployeeController() { }
+
+        public void HireEmp(Employee employee, List<Skill> skills, Vacansy vacansy)
         {
-            db = new CompanyContext();
+            manager.HireEmp(employee, skills, vacansy);
         }
 
-
-        public void HireEmp(Employee employee, List<Skill> skills)
-        {
-            using (var db = new CompanyContext())
-            {
-                db.Employees.Add(employee);
-
-                List<Skill> skills1 = new List<Skill>();
-                skills1 = skills;
-
-                employee.Skills.AddRange(skills1);
-                db.SaveChanges();
-            }
-        }
         public List<Employee> UpdateEmp()
         {
             return db.Employees.ToList();

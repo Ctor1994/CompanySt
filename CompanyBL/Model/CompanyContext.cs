@@ -13,7 +13,7 @@ namespace CompanyBL.Model
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=N105124;Database=exDbWithMans;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=N105124;Database=RR54;Trusted_Connection=True;");
         }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Employee> Employees { get; set; }

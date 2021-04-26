@@ -6,14 +6,9 @@ using System.Text;
 
 namespace CompanyBL.Controller
 {
-    public class VacansyController
+    public class VacansyController : BaseController
     {
-        CompanyContext db;
-
-        public VacansyController()
-        {
-            db = new CompanyContext();
-        }
+        public VacansyController() { }
         public void MakeVac(Vacansy vacansy)
         {
             using (var db = new CompanyContext())
@@ -24,7 +19,21 @@ namespace CompanyBL.Controller
         }
         public List<Vacansy> UpdateМVac()
         {
-            return db.Vacansies.ToList();
+            List<Vacansy> AllVacansies = new List<Vacansy>();
+            List<Vacansy> NeededVacansies = new List<Vacansy>();
+
+            AllVacansies.AddRange(db.Vacansies);
+            var report = from vacancy in db.Vacansies
+                          join employee in db.Employees on vacancy.Id equals employee.VacansyId
+                          select vacancy;
+            foreach (var item in AllVacansies)
+            {
+                if (!report.Contains(item))
+                {
+                    NeededVacansies.Add(item);
+                }
+            }
+            return NeededVacansies;
         }
     }
 }

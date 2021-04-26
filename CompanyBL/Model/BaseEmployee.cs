@@ -12,8 +12,9 @@ namespace CompanyBL.Model
         public DateTime BirthDate { get; set; }
         public decimal Salary { get; set; }
         public bool Bonus { get; set; }
-
         public List<Skill> Skills { get; set; } = new List<Skill>();
+        public Vacansy Vacansy { get; set; }
+        public int VacansyId { get; set; }
 
         public BaseEmployee() { }
         public override string ToString()
