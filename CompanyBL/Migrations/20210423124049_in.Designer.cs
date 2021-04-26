@@ -4,14 +4,16 @@ using CompanyBL.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CompanyBL.Migrations
 {
     [DbContext(typeof(CompanyContext))]
-    partial class CompanyContextModelSnapshot : ModelSnapshot
+    [Migration("20210423124049_in")]
+    partial class @in
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,13 +58,7 @@ namespace CompanyBL.Migrations
                     b.Property<string>("SecondName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("VacansyId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("VacansyId")
-                        .IsUnique();
 
                     b.ToTable("Employees");
                 });
@@ -89,12 +85,7 @@ namespace CompanyBL.Migrations
                     b.Property<string>("SecondName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("VacansyId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("VacansyId");
 
                     b.ToTable("Managers");
                 });
@@ -131,6 +122,9 @@ namespace CompanyBL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("ManagerId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -138,6 +132,8 @@ namespace CompanyBL.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ManagerId");
 
                     b.ToTable("Vacansies");
                 });
@@ -157,26 +153,19 @@ namespace CompanyBL.Migrations
                     b.ToTable("EmployeeSkill");
                 });
 
-            modelBuilder.Entity("CompanyBL.Model.Employee", b =>
+            modelBuilder.Entity("EmployeeVacansy", b =>
                 {
-                    b.HasOne("CompanyBL.Model.Vacansy", "Vacansy")
-                        .WithOne("Employee")
-                        .HasForeignKey("CompanyBL.Model.Employee", "VacansyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("EmployeesId")
+                        .HasColumnType("int");
 
-                    b.Navigation("Vacansy");
-                });
+                    b.Property<int>("VacansiesId")
+                        .HasColumnType("int");
 
-            modelBuilder.Entity("CompanyBL.Model.Manager", b =>
-                {
-                    b.HasOne("CompanyBL.Model.Vacansy", "Vacansy")
-                        .WithMany()
-                        .HasForeignKey("VacansyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasKey("EmployeesId", "VacansiesId");
 
-                    b.Navigation("Vacansy");
+                    b.HasIndex("VacansiesId");
+
+                    b.ToTable("EmployeeVacansy");
                 });
 
             modelBuilder.Entity("CompanyBL.Model.Skill", b =>
@@ -188,6 +177,13 @@ namespace CompanyBL.Migrations
                     b.HasOne("CompanyBL.Model.Vacansy", null)
                         .WithMany("Skills")
                         .HasForeignKey("VacansyId");
+                });
+
+            modelBuilder.Entity("CompanyBL.Model.Vacansy", b =>
+                {
+                    b.HasOne("CompanyBL.Model.Manager", null)
+                        .WithMany("Vacansies")
+                        .HasForeignKey("ManagerId");
                 });
 
             modelBuilder.Entity("EmployeeSkill", b =>
@@ -205,15 +201,30 @@ namespace CompanyBL.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("EmployeeVacansy", b =>
+                {
+                    b.HasOne("CompanyBL.Model.Employee", null)
+                        .WithMany()
+                        .HasForeignKey("EmployeesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CompanyBL.Model.Vacansy", null)
+                        .WithMany()
+                        .HasForeignKey("VacansiesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("CompanyBL.Model.Manager", b =>
                 {
                     b.Navigation("Skills");
+
+                    b.Navigation("Vacansies");
                 });
 
             modelBuilder.Entity("CompanyBL.Model.Vacansy", b =>
                 {
-                    b.Navigation("Employee");
-
                     b.Navigation("Skills");
                 });
 #pragma warning restore 612, 618

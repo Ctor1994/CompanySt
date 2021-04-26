@@ -19,6 +19,7 @@ namespace CompanyUI
         EmployeeController employeeController = new EmployeeController();
         ManagerController managerController = new ManagerController();
         public static Department DepartmentTemp { get; set; }
+        public static Vacansy VacansyTemp { get; set; }
         List<Skill> SkillsTemp = new List<Skill>();
 
         public Main()
@@ -33,46 +34,48 @@ namespace CompanyUI
             if (form.ShowDialog() == DialogResult.OK)
             {
                 departmentController.MakeDep(form.Department);
+                UpdateDep();
                 MessageBox.Show(form.Department + ": was made");
             }
-            UpdateDep();
+
         }
         private void btnHireEmp_Click(object sender, EventArgs e)
         {
             Hire();
-            UpdateEmp();
+            UpdateAll();
         }
 
         private void btnMakeVac_Click(object sender, EventArgs e)
         {
             MakeVac();
-            UpdateVac();
+            UpdateAll();
         }
 
         private void btnFire_Click(object sender, EventArgs e)
         {
             Fire();
-            UpdateEmp();
+            UpdateAll();
         }
         private void btnCloseDep_Click(object sender, EventArgs e)
         {
             CloseDep();
-            UpdateDep();
+            UpdateAll();
         }
 
         private void Hire()
         {
-            if (cboDeparts.SelectedItem != null)
+            //if ((cboDeparts.SelectedItem != null) && (cboVacancy.SelectedItem != null))
+            if ((cboDeparts.SelectedItem != null))
             {
                 DepartmentTemp = cboDeparts.SelectedItem as Department;
-                
-                var form = new HireEmploee();
+                VacansyTemp = cboVacancy.SelectedItem as Vacansy;
+                var form = new HireEmploee(VacansyTemp);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     SkillsTemp = form.skillsTepm;
                     if (form.Position == "Employee")
                     {
-                        employeeController.HireEmp(form.Employee, form.skillsTepm);
+                        employeeController.HireEmp(form.Employee, form.skillsTepm, VacansyTemp);
                         MessageBox.Show(form.Employee + ": was hired");
                     }
                     if (form.Position == "Manager")
@@ -96,9 +99,9 @@ namespace CompanyUI
                 var form = new MakeVacancyForm();
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    vacansyController.MakeVac(form.Vacansy);
+                    vacansyController.MakeVac(form.Vacansy1);
 
-                    MessageBox.Show(form.Vacansy + ": was made");
+                    MessageBox.Show(form.Vacansy1 + ": was made");
                 }
             }
             else
@@ -124,14 +127,19 @@ namespace CompanyUI
 
         #region Update
         private void UpdateAll()
+        
         {
             UpdateDep();
             UpdateEmp();
             UpdateVac();
+            vacansyController.UpdateМVac();
         }
+
+
         private void UpdateVac()
         {
             var vac = vacansyController.UpdateМVac();
+
             lblVac.Text = vac.Count.ToString();
             foreach (var item in vac)
             {

@@ -9,12 +9,6 @@ namespace CompanyBL.Controller
     public class ManagerController : BaseController
     {
 
-        CompanyContext db;
-        public ManagerController()
-        {
-            db = new CompanyContext();
-        }
-
         public void HireManager(Manager manager, List<Skill> skills)
         {
             db.Managers.Add(manager);

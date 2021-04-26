@@ -12,15 +12,17 @@ namespace CompanyUI
     public partial class HireEmploee : Form
     {
         public Employee Employee { get; set; }
+        public Vacansy VacTe { get; set; }
         public Manager Manager { get; set; }
-        int countEmp = 0;
+        int countEmp = 1;
         int countManag = 0;
         public string Position { get; set; }
         public List<Skill> skillsTepm;
         private readonly List<string> SkillsList = new List<string>() { "English", "C#", "Java", "Excel", "Make Coffee", "MS SQL", "Java Script", "Asp.net core", "WPF", "WCF", "WinForm" };
         private readonly List<string> Positions = new List<string>() {"Employee", "Manager"};
-        public HireEmploee()
+        public HireEmploee(Vacansy vacansy)
         {
+            VacTe = vacansy;
             InitializeComponent();
             cboSkillSet.Items.AddRange(SkillsList.ToArray());
             cboPosition.Items.AddRange(Positions.ToArray());
@@ -32,21 +34,22 @@ namespace CompanyUI
             {
                 Employee = new Employee()
                 {
-                    Id = countEmp,
+                    //Id = countEmp,
                     Name = txbEmplName.Text,
                     SecondName = txbSecName.Text,
                     BirthDate = dtpBirth.Value,
                     Salary = nudSalary.Value,
-                    Bonus = false
+                    Bonus = false,
+                    VacansyId = VacTe.Id
                 };
-                countEmp++;
+                //countEmp++;
                 SelectSkills();
             }
             else if (Position == "Manager")
             {
                 Manager = new Manager()
                 {
-                    Id = countManag,
+                    //Id = countManag,
                     Name = txbEmplName.Text,
                     SecondName = txbSecName.Text,
                     BirthDate = dtpBirth.Value,
@@ -54,7 +57,7 @@ namespace CompanyUI
                     Bonus = false,
                     //employees = new List<Employee>()
                 };
-                countManag++;
+                //countManag++;
                 SelectSkills();
             }
         }

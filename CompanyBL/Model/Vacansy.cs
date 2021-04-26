@@ -11,6 +11,9 @@ namespace CompanyBL.Model
         public decimal Salary { get; set; }
 
         public List<Skill> Skills { get; set; }
+
+        public Employee Employee { get; set; }
+
         public Vacansy() { }
 
         public override string ToString()

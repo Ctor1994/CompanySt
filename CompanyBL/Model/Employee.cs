@@ -7,6 +7,9 @@ namespace CompanyBL.Model
     public class Employee : BaseEmployee
     {
         public Employee() { }
+
+
+        
         //public int ManagerId { get; set; }
         //public Manager Manager { get; set; }
     }
